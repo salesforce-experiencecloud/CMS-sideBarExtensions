@@ -1,0 +1,34 @@
+<template>
+	<div class="slds-card slds-var-p-around_x-small">
+		<div class="slds-form">
+			<div class="tldrIcon">
+				<lightning-card variant="large" icon-name="utility:summary">
+					<h6 slot="title"><b> TLDR this</b></h6>
+				</lightning-card>
+			</div>
+			<h6><b>Create a summary for this Content Item</b></h6>
+			<!-- Min length used as input param in TLDR Api -->
+			<lightning-input type="number" label="Min Length" max="300" min="10"
+				placeholder="Enter Minimum length of the output summary" onchange={handleMinLengthChange}>
+			</lightning-input> 
+			<lightning-input type="number" label="Max Length" max="300" min="10"
+				placeholder="Enter max length of the output summary" onchange={handleMaxLengthChange}>
+			</lightning-input>
+			<!-- Choose source field from content to pick up input data -->
+			<lightning-combobox name="source" label="Choose source" value={dafInputField}
+			 options={contentOptions} onchange={handleDafInputFieldChange} required>
+			</lightning-combobox>
+			<!-- Choose target field from content to populate output data -->
+			<lightning-combobox name="target" label="Choose target" value={dafOutputField}
+			 options={contentOptions} onchange={handleDafOutputFieldChange} required>
+			</lightning-combobox>
+			<!-- Choose TLDR summary API you want to use -->
+			<lightning-combobox name="summary" label="Choose Summarization Type" value={summaryAPIToCall} placeholder="Select Summary Type"
+				options={summaryOptions} onchange={handleSummaryChange} required></lightning-combobox>
+			<br>
+			<lightning-button variant="brand" label="Create summary" title="Primary action" onclick={createSummary}
+				class="slds-m-left_x-small"></lightning-button>	
+		</div>
+		<br/>
+	</div>
+</template>
