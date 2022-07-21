@@ -37,3 +37,5 @@ This will deploys following in the organization
 
 ### Update the password in NamedCredentials 
 Go to Setp > NamedCredentials > Edit 'tldthis' > change password to the API key generated to access TLDRthis api
+![named_credentials](https://user-images.githubusercontent.com/59471596/180263029-d6dc793b-88bd-4391-b846-2c1b75f11fc0.jpg)
+
