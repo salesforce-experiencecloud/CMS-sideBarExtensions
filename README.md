@@ -5,7 +5,7 @@ In this blog post, will walk you through the deployment of tldr summary extensio
 
 You can add as many sidebar extensions to the content editor as your team can use. After you’ve added at least one, you see the extensions panel in the CMS on the right side of the content editor. Content authors can expand and collapse the panel and the extensions within the panel as they work.
 
-*screen shopt of content editor*
+![image](https://user-images.githubusercontent.com/59471596/180261499-8b20df9a-bff0-409b-90ad-b53b9e0224c1.png)
 
 # Example : Editor extension for text summarization
 This repo include code sample of Editor extension for text summarization.
@@ -18,7 +18,7 @@ A text summarizing tool would let content authors quickly create content summari
 ## TLDR sidebar extension user experience
 With Capricorn’s TLDR sidebar extension, content authors can open a News item in the content editor, and then open the TLDR extension from the panel on the right. They set the parameters that indicate the minimum and maximum word count of the summary, select the source and target fields, and choose the summarization type (human language-like AI summarization, or a selection of key sentences). 
 
-*screen shot of Textsummarization extention*
+![image](https://user-images.githubusercontent.com/59471596/180261517-a8295a30-c4ba-4ef4-a91a-0634ff0a8001.png)
 
 After they click **Create Summary**, the extension tool runs some quick verifications and pastes a summary into the *Excerpt* field. The author verifies the summary text, makes a few tweaks as needed, and clicks *Save*. Now, a content summary is available for this News item.
 
