@@ -29,8 +29,8 @@ Beyond TLDR, other extension tools follow a similar flow: grammar or tone checke
 ### Get the API Key
 Make sure you have the API key to invoke the above TLDRthis API.
 
-### Deploy the code to the tragetted organization ##
-This will deploys following in the organization
+### Deploy the code to the target organization ##
+This will deploys following in the above organization
 1. **LWC component**  tldrSummary
 2. **ApexClass** TldrSummaryExtensionController
 3. **NamedCredential** tldrthis
