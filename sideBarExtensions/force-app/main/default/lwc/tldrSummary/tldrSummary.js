@@ -77,7 +77,7 @@ export default class TldrSummary extends LightningElement {
     //Get schema details or fields of current content selected
     getCurrentSchemaList() {
         let currentContentSchemaList = [];
-        const schema = this.context.data.schema.schema.properties
+        const schema = this.context.data.schema.properties
         for (const property in schema) {
             if (this._isTextType(schema[property].$ref)) {
                 currentContentSchemaList.push({ label: schema[property].title, value: property})
@@ -157,9 +157,9 @@ export default class TldrSummary extends LightningElement {
 
     _isTextType(ref) {
         return (
-            ref === '#/$defs/sfdc_cms__textType' ||
-            ref === '#/$defs/sfdc_cms__richTextType' ||
-            ref === '#/$defs/sfdc_cms__multilineTextType'
+            ref === '#/$defs/lightning__textType' ||
+            ref === '#/$defs/lightning__richTextType' ||
+            ref === '#/$defs/lightning__multilineTextType'
         );
     }
 
