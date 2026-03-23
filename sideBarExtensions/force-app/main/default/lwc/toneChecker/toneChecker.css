@@ -1,0 +1,26 @@
+.preview-container {
+    border: 1px solid #dddbda;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    min-height: 150px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.preview-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #3e3e3c;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.slds-card {
+    padding: 1rem;
+}
+
+.slds-text-heading_medium {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #181818;
+}

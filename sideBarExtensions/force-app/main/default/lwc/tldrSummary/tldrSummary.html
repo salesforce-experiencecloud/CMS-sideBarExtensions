@@ -7,24 +7,38 @@
 				</lightning-card>
 			</div>
 			<h6><b>Create a summary for this Content Item</b></h6>
-			<!-- Min length used as input param in TLDR Api -->
-			<lightning-input type="number" label="Min Length" max="300" min="10"
-				placeholder="Enter Minimum length of the output summary" onchange={handleMinLengthChange}>
-			</lightning-input> 
-			<lightning-input type="number" label="Max Length" max="300" min="10"
-				placeholder="Enter max length of the output summary" onchange={handleMaxLengthChange}>
-			</lightning-input>
-			<!-- Choose source field from content to pick up input data -->
-			<lightning-combobox name="source" label="Choose source" value={dafInputField}
-			 options={contentOptions} onchange={handleDafInputFieldChange} required>
-			</lightning-combobox>
+			<!-- Choose TLDR summary API you want to use -->
+			<lightning-combobox name="summary" label="Choose Summarization Type" value={summaryAPIToCall} placeholder="Select Summary Type"
+				options={summaryOptions} onchange={handleSummaryChange} required></lightning-combobox>
+
+			<!-- URL mode inputs -->
+			<template lwc:if={isUrlMode}>
+				<lightning-input type="url" label="Article URL" value={summaryUrl}
+					placeholder="https://example.com/article" onchange={handleSummaryUrlChange} required>
+				</lightning-input>
+				<lightning-input type="number" label="Number of Sentences" value={numSentences} min="1" max="20"
+					placeholder="Enter number of sentences in summary" onchange={handleNumSentencesChange}>
+				</lightning-input>
+			</template>
+
+			<!-- Text (key sentences) mode inputs -->
+			<template lwc:else>
+				<lightning-input type="number" label="Min Length" max="300" min="10"
+					placeholder="Enter Minimum length of the output summary" onchange={handleMinLengthChange}>
+				</lightning-input>
+				<lightning-input type="number" label="Max Length" max="300" min="10"
+					placeholder="Enter max length of the output summary" onchange={handleMaxLengthChange}>
+				</lightning-input>
+				<!-- Choose source field from content to pick up input data -->
+				<lightning-combobox name="source" label="Choose source" value={dafInputField}
+				 options={contentOptions} onchange={handleDafInputFieldChange} required>
+				</lightning-combobox>
+			</template>
+
 			<!-- Choose target field from content to populate output data -->
 			<lightning-combobox name="target" label="Choose target" value={dafOutputField}
 			 options={contentOptions} onchange={handleDafOutputFieldChange} required>
 			</lightning-combobox>
-			<!-- Choose TLDR summary API you want to use -->
-			<lightning-combobox name="summary" label="Choose Summarization Type" value={summaryAPIToCall} placeholder="Select Summary Type"
-				options={summaryOptions} onchange={handleSummaryChange} required></lightning-combobox>
 			<br>
 			<lightning-button variant="brand" label="Create summary" title="Primary action" onclick={createSummary}
 				class="slds-m-left_x-small"></lightning-button>	

@@ -1,0 +1,42 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-form">
+            <h2 class="slds-text-heading_medium slds-m-bottom_medium">Change Tone</h2>
+            
+            <!-- Radio button group for tone selection -->
+            <lightning-radio-group
+                name="toneOptions"
+                label=""
+                options={toneOptions}
+                value={selectedTone}
+                onchange={handleToneChange}
+                type="radio">
+            </lightning-radio-group>
+
+            <!-- Preview text container -->
+            <div class="preview-container slds-m-top_medium">
+                <div class="preview-text">
+                    {previewText}
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="slds-m-top_medium slds-align_absolute-center">
+                <lightning-button
+                    label="Try again"
+                    icon-name="utility:refresh"
+                    onclick={handleTryAgain}
+                    class="slds-m-bottom_small">
+                </lightning-button>
+            </div>
+            
+            <div class="slds-align_absolute-center">
+                <lightning-button
+                    variant="brand"
+                    label="Replace"
+                    onclick={handleReplace}>
+                </lightning-button>
+            </div>
+        </div>
+    </div>
+</template>

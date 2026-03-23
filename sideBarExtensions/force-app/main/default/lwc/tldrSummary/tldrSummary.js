@@ -12,6 +12,7 @@ import {
 } from 'experience/cmsEditorApi';
 
 import getSummary from '@salesforce/apex/TldrSummaryExtensionController.getSummary';
+import getSummaryFromUrl from '@salesforce/apex/TldrSummaryExtensionController.getSummaryFromUrl';
 
 /**
  * This sidebar extension to get summart text using TLDR summary API. 
@@ -32,11 +33,15 @@ export default class TldrSummary extends LightningElement {
     @wire(getContext)
     context;
 
-    //Default paramter values for TLDR summary API
+    //Default parameter values for TLDR summary API (text mode)
     minLength = 10;
     maxLength = 300;
-    summaryAPIToCall = "AI";
+    summaryAPIToCall = "URL";
 
+    //Default parameter values for URL mode
+    summaryUrl = '';
+    numSentences = 5;
+    isDetailed = false;
 
     //Source field to pick up data to be summarized 
     dafInputField = "";
@@ -44,21 +49,34 @@ export default class TldrSummary extends LightningElement {
     //Target field to populate using API
     dafOutputField = "";
 
+    get isUrlMode() {
+        return this.summaryAPIToCall === 'URL';
+    }
+
     //TLDR Summary Type API value set on selection
     handleSummaryChange(event) {
         this.summaryAPIToCall = event.detail.value;
     }
 
     get summaryOptions() {
-        return [{
-            label: 'AI (Human-like)',
-            value: "AI"
-        },
-        {
-            label: 'Key sentences',
-            value: "KEY_SENTENCES"
-        },
+        return [
+            {
+                label: 'Summarize URL',
+                value: 'URL'
+            },
+            {
+                label: 'Key sentences',
+                value: 'KEY_SENTENCES'
+            },
         ];
+    }
+
+    handleSummaryUrlChange(event) {
+        this.summaryUrl = event.detail.value;
+    }
+
+    handleNumSentencesChange(event) {
+        this.numSentences = event.detail.value;
     }
 
     handleDafOutputFieldChange(event) {
@@ -112,35 +130,45 @@ export default class TldrSummary extends LightningElement {
 
     // Method to pick up Source data -> Hit API and extract response -> Populate the target field
     async generateSummarizeText() {
+        let response;
 
-        var sourceHtmlInput = this.content.data.contentBody[this.dafInputField]
-        if (sourceHtmlInput == undefined) {
-            alert("Source input empty or not saved");
-            return;
-        }
-
-        // Remove any html tags that will be present in input data 
-        const response = await getSummary(
-            {
+        if (this.isUrlMode) {
+            if (!this.summaryUrl) {
+                alert("Please enter a URL to summarize");
+                return;
+            }
+            response = await getSummaryFromUrl({
+                url: this.summaryUrl,
+                numSentences: this.numSentences,
+                isDetailed: this.isDetailed
+            }).catch((err) => {
+                console.error(err);
+            });
+        } else {
+            var sourceHtmlInput = this.content.data.contentBody[this.dafInputField];
+            if (sourceHtmlInput == undefined) {
+                alert("Source input empty or not saved");
+                return;
+            }
+            response = await getSummary({
                 summaryInputText: sourceHtmlInput.replace(/<\/?[^>]+(>|$)/g, ""),
                 minLength: this.minLength,
                 maxLength: this.maxLength,
                 apiType: this.summaryAPIToCall
             }).catch((err) => {
                 console.error(err);
-            });;
+            });
+        }
 
         try {
             const responseJson = JSON.parse(response);
             if (responseJson?.summary) {
-                /**
-                 *  updateContent API to update the target field within DAF
-                 * (selected on extension ui) with summary
-                 */
-                //deep clone the contentBody and modify the field/proeprty to push the value in the daf
+                const summaryText = Array.isArray(responseJson.summary)
+                    ? responseJson.summary.join(' ')
+                    : responseJson.summary;
+
                 const contentBodyModify = JSON.parse(JSON.stringify(this.content.data.contentBody));
-                //change the value of user changed field
-                contentBodyModify[this.dafOutputField] = responseJson?.summary;
+                contentBodyModify[this.dafOutputField] = summaryText;
                 updateContent({
                     contentBody: contentBodyModify
                 }).then(() => {
@@ -149,7 +177,6 @@ export default class TldrSummary extends LightningElement {
             } else {
                 console.log('unable to get summary', responseJson?.message);
             }
-
         } catch (e) {
             console.error(e);
         }

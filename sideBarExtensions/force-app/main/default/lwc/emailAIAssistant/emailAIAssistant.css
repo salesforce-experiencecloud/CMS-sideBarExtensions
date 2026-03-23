@@ -1,0 +1,163 @@
+.slds-card {
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8f0fe 100%);
+    border-radius: 0.5rem;
+}
+
+.header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.slds-text-heading_medium {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a73e8;
+    margin: 0;
+}
+
+.gemini-badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #5f6368;
+    background: linear-gradient(90deg, #4285f4, #ea4335, #fbbc04, #34a853);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #dadce0;
+    border-radius: 1rem;
+}
+
+.description {
+    font-size: 0.85rem;
+    color: #5f6368;
+    margin: 0.5rem 0 0 0;
+}
+
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1a73e8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.email-field {
+    border: 1px solid #dadce0;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    background-color: #ffffff;
+}
+
+.email-field .section-label {
+    margin-bottom: 0.25rem;
+}
+
+.field-value {
+    font-size: 0.9rem;
+    color: #3c4043;
+    line-height: 1.4;
+}
+
+.content-container {
+    border: 1px solid #1a73e8;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.15);
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.content-header .section-label {
+    margin-bottom: 0;
+}
+
+.preview-area {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #3c4043;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0.75rem;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+}
+
+.preview-block {
+    margin-bottom: 0.75rem;
+}
+
+.preview-block:last-child {
+    margin-bottom: 0;
+}
+
+.preview-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #1a73e8;
+}
+
+.preview-paragraph {
+    font-size: 0.9rem;
+    color: #3c4043;
+    line-height: 1.6;
+}
+
+.preview-list {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.preview-list li {
+    font-size: 0.9rem;
+    color: #3c4043;
+    line-height: 1.8;
+    margin-bottom: 0.25rem;
+}
+
+.preview-list li:last-child {
+    margin-bottom: 0;
+}
+
+.code-area {
+    max-height: 300px;
+    overflow: auto;
+    background-color: #1e1e1e;
+    border-radius: 0.25rem;
+    padding: 0.75rem;
+}
+
+.code-area pre {
+    margin: 0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: #d4d4d4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Style the textarea for better UX */
+lightning-textarea {
+    --slds-c-textarea-sizing-min-height: 100px;
+}

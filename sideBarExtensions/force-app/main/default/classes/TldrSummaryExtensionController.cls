@@ -1,18 +1,15 @@
 /**
  * An apex page controller that make callout to tldr api to get the text summary
  */
-public class TldrSummaryExtensionController {
+public with sharing class TldrSummaryExtensionController {
     @AuraEnabled(cacheable=true)
     public static String getSummary(String summaryInputText, Integer minLength, Integer maxLength, String apiType) {
-        String urlToInvoke = 'AI'.equals(apiType)? 'v1/model/abstractive/summarize-text/': 'v1/model/extractive/summarize-text/';
         HttpRequest req = new HttpRequest();
-        req.setEndpoint('callout:tldrthis/'+urlToInvoke);
+        req.setEndpoint('callout:tldrthis/v1/model/extractive/summarize-text/');
         req.setHeader('content-type', 'application/json');
         req.setHeader('x-rapidapi-host', 'tldrthis.p.rapidapi.com');
-        req.setHeader('x-rapidapi-key', '{!$Credential.Password}');
         req.setMethod('POST');
         
-        //set request body with
         JSONGenerator requestBody = JSON.createGenerator(true);    
         requestBody.writeStartObject();      
         requestBody.writeStringField('text', summaryInputText);
@@ -25,5 +22,25 @@ public class TldrSummaryExtensionController {
         Http http = new Http();
         HTTPResponse res = http.send(req);
         return res.getBody();
+    }
+
+    @AuraEnabled(cacheable=false)
+    public static String getSummaryFromUrl(String url, Integer numSentences, Boolean isDetailed) {
+        HttpRequest req = new HttpRequest();
+        req.setEndpoint('callout:tldrthis/v1/model/extractive/summarize-url/');
+        req.setHeader('content-type', 'application/json');
+        req.setHeader('x-rapidapi-host', 'tldrthis.p.rapidapi.com');
+        req.setMethod('POST');
+
+        JSONGenerator body = JSON.createGenerator(true);
+        body.writeStartObject();
+        body.writeStringField('url', url);
+        body.writeNumberField('num_sentences', numSentences);
+        body.writeBooleanField('is_detailed', isDetailed);
+        body.writeEndObject();
+
+        req.setBody(body.getAsString());
+        Http http = new Http();
+        return http.send(req).getBody();
     }
 }

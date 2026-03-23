@@ -2,15 +2,19 @@
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
     <isExposed>true</isExposed>
-    <masterLabel>TLDR summary Extension</masterLabel>
+    <masterLabel>Tone Checker</masterLabel>
+    <description>Refine text with AI on Heading for email content</description>
     <targets>
         <target>lightning__CmsEditorExtension</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__CmsEditorExtension">
-            <size width="x-large" height="640"></size>
+            <size width="x-large" height="600"></size>
             <contentTypes>
-                <contentType fullyQualifiedName="sfdc_cms__news">
+                <contentType fullyQualifiedName="sfdc_cms__email">
+                    <blockTypes>
+                        <blockType fullyQualifiedName="lightning__heading"></blockType>
+                    </blockTypes>
                 </contentType>
             </contentTypes>
         </targetConfig>

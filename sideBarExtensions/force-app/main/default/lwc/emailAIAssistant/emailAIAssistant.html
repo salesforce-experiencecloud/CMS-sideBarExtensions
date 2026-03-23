@@ -1,0 +1,112 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-form">
+            <div class="header-section">
+                <h2 class="slds-text-heading_medium">Email AI Assistant</h2>
+                <span class="gemini-badge">Powered by Google</span>
+            </div>
+            
+            <p class="description">Generate structured email blocks (headings, paragraphs, lists) using AI.</p>
+
+            <!-- Prompt input -->
+            <div class="slds-m-top_medium">
+                <div class="section-label slds-m-bottom_x-small">Your Prompt</div>
+                <lightning-textarea
+                    name="promptInput"
+                    label=""
+                    value={promptText}
+                    placeholder="Describe the email content you want. E.g., 'Create a welcome email with a heading, introduction paragraph, and a list of 3 key features.'"
+                    max-length="2000"
+                    onchange={handlePromptChange}>
+                </lightning-textarea>
+            </div>
+
+            <!-- Generate button -->
+            <div class="slds-m-top_medium slds-align_absolute-center">
+                <lightning-button
+                    variant="brand"
+                    label="Generate Email"
+                    icon-name="utility:sparkles"
+                    onclick={handleGenerate}
+                    disabled={isGenerateDisabled}>
+                </lightning-button>
+            </div>
+
+            <!-- Loading spinner -->
+            <template lwc:if={isLoading}>
+                <div class="slds-m-top_medium slds-align_absolute-center">
+                    <lightning-spinner alternative-text="Generating email..." size="medium"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- Generated content container -->
+            <template lwc:if={hasGeneratedContent}>
+                <!-- Subject Line -->
+                <div class="email-field slds-m-top_medium">
+                    <div class="section-label">Subject Line</div>
+                    <div class="field-value">{subjectLine}</div>
+                </div>
+
+                <!-- Email Blocks -->
+                <div class="content-container slds-m-top_medium">
+                    <div class="content-header">
+                        <div class="section-label">Email Content</div>
+                        <lightning-button
+                            variant="base"
+                            label={previewButtonLabel}
+                            icon-name={previewButtonIcon}
+                            onclick={handleTogglePreview}>
+                        </lightning-button>
+                    </div>
+                    
+                    <!-- Preview mode -->
+                    <template lwc:if={showPreview}>
+                        <div class="preview-area">
+                            <template for:each={previewBlocks} for:item="block">
+                                <div key={block.key} class="preview-block">
+                                    <template lwc:if={block.isHeading}>
+                                        <div class="preview-heading">{block.text}</div>
+                                    </template>
+                                    <template lwc:if={block.isParagraph}>
+                                        <div class="preview-paragraph">{block.text}</div>
+                                    </template>
+                                    <template lwc:if={block.isList}>
+                                        <ul class="preview-list">
+                                            <template for:each={block.items} for:item="item">
+                                                <li key={item.key}>{item.text}</li>
+                                            </template>
+                                        </ul>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                    
+                    <!-- JSON mode -->
+                    <template lwc:else>
+                        <div class="code-area">
+                            <pre>{generatedBlocksJson}</pre>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Action buttons -->
+                <div class="slds-m-top_medium button-group">
+                    <lightning-button
+                        label="Try again"
+                        icon-name="utility:refresh"
+                        onclick={handleTryAgain}
+                        class="slds-m-right_small">
+                    </lightning-button>
+                    <lightning-button
+                        variant="brand"
+                        label="Place on Canvas"
+                        icon-name="utility:check"
+                        onclick={handleReplace}
+                        disabled={isReplaceDisabled}>
+                    </lightning-button>
+                </div>
+            </template>
+        </div>
+    </div>
+</template>
