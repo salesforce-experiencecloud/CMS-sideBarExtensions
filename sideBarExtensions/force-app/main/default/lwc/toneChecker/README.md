@@ -2,7 +2,9 @@
 
 For detailed, step-by-step instructions about creating an extension for Marketing content types, see *Build Extensions for Marketing Content in Marketing Cloud Next*. These code samples are for an extension that allows marketers to edit the tone of content within a selected component on the canvas. 
 
-![Screenshot](screenshots/screenshot1.png)
+
+<img width="2560" height="1281" alt="Screenshot 2026-03-23 at 5 55 32 PM" src="https://github.com/user-attachments/assets/e80e5fc6-9fd4-412c-b8d2-08dec3be0a76" />
+
 
 ## **Apex Controller**
 
