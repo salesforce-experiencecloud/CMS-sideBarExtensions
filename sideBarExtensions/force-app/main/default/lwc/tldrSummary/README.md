@@ -25,7 +25,8 @@ You can build extensions that work with any third-party tool. In this documentat
 
 You can connect this type of extension to any third-party generative AI API such as Gemini or ChatGPT.
 
-![Screenshot](screenshots/screenshot1.png)
+<img width="2560" height="1281" alt="image" src="https://github.com/user-attachments/assets/9d7dd8f5-e798-4c88-9052-7f7e50c13d5f" />
+
 
 ---
 
