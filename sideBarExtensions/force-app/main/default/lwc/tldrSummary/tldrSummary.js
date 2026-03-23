@@ -94,8 +94,9 @@ export default class TldrSummary extends LightningElement {
 
     //Get schema details or fields of current content selected
     getCurrentSchemaList() {
+        if (!this.context?.data?.schema?.properties) return [];
         let currentContentSchemaList = [];
-        const schema = this.context.data.schema.properties
+        const schema = this.context.data.schema.properties;
         for (const property in schema) {
             if (this._isTextType(schema[property].$ref)) {
                 currentContentSchemaList.push({ label: schema[property].title, value: property})
@@ -117,7 +118,8 @@ export default class TldrSummary extends LightningElement {
      * Create a summary text by calling tldrthis api
      */
     async createSummary() {
-        if (typeof this.content.data.contentBody[this.dafOutputField] == "undefined") {
+        const outputFieldValue = this.content?.data?.contentBody?.[this.dafOutputField];
+        if (typeof outputFieldValue == "undefined") {
             this.generateSummarizeText();
         } else {
             if (confirm("Summary Target field already has some text in it. Would you like to overwrite it?")) {
@@ -167,7 +169,7 @@ export default class TldrSummary extends LightningElement {
                     ? responseJson.summary.join(' ')
                     : responseJson.summary;
 
-                const contentBodyModify = JSON.parse(JSON.stringify(this.content.data.contentBody));
+                const contentBodyModify = JSON.parse(JSON.stringify(this.content?.data?.contentBody ?? {}));
                 contentBodyModify[this.dafOutputField] = summaryText;
                 updateContent({
                     contentBody: contentBodyModify
