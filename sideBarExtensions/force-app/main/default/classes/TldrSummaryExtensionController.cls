@@ -17,7 +17,9 @@ public with sharing class TldrSummaryExtensionController {
         requestBody.writeNumberField('max_length', maxLength);
         requestBody.writeEndObject();
         
-        req.setBody(requestBody.getAsString());
+        req.setBody(
+            NamedCredentialRequestUtils.escapeMergeFieldsInBody(requestBody.getAsString())
+        );
         
         Http http = new Http();
         HTTPResponse res = http.send(req);
@@ -39,7 +41,9 @@ public with sharing class TldrSummaryExtensionController {
         body.writeBooleanField('is_detailed', isDetailed);
         body.writeEndObject();
 
-        req.setBody(body.getAsString());
+        req.setBody(
+            NamedCredentialRequestUtils.escapeMergeFieldsInBody(body.getAsString())
+        );
         Http http = new Http();
         return http.send(req).getBody();
     }

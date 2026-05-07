@@ -82,7 +82,9 @@
             req.setTimeout(120000);
             
             // Set request body
-            String requestBody = JSON.serialize(geminiRequest);
+            String requestBody = NamedCredentialRequestUtils.escapeMergeFieldsInBody(
+                JSON.serialize(geminiRequest)
+            );
             req.setBody(requestBody);
             
             System.debug('Gemini API Request Body: ' + requestBody);
