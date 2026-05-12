@@ -41,8 +41,7 @@ public with sharing class EmailAIAssistant {
         '           "unit": "px",\n' +
         '           "value": 16.0\n' +
         '       }\n' +
-        '   }\n' +
-        
+        '   },\n' +
         '   "lightning:typography": {\n' + 
         '        "fontFamily": "{!$brand.fontFamily.arial}",\n' + 
         '        "fontSize": {\n' + 
@@ -58,7 +57,7 @@ public with sharing class EmailAIAssistant {
         '            ]\n' + 
         '        },\n' + 
         '        "textTransform": "none"\n' + 
-        '   }\n'+
+        '   },\n'+
         '    "text": "YOUR HEADING TEXT HERE"\n' +
         '  },\n' +
         '  "definition": "lightning/heading",\n' +
@@ -96,7 +95,7 @@ public with sharing class EmailAIAssistant {
         '            "unit": "px",\n' + 
         '            "value": 18.0\n' + 
         '        },\n' + 
-        '        "fontWeight": "{!$brand.fontWeight.bold}",\n' + 
+        '        "fontWeight": "{!$brand.fontWeight.normal}",\n' + 
         '        "letterSpacing": "normal",\n' + 
         '        "lineHeight": 1.5,\n' + 
         '        "textDecoration": {\n' + 
@@ -133,7 +132,8 @@ public with sharing class EmailAIAssistant {
     '1. Use "rawHtml" for the content of the HTML block. \n' +
     '2. Ensure rawHtml contains valid, email-safe HTML code (images, links, styled spans). \n' +
     '3. Keep text content engaging and professional.\n' +
-    '4. IMPORTANT: Return ONLY the JSON object, no markdown code blocks, no explanations.\n\n';
+    '4. "fontWeight" MUST ALWAYS be a brand merge field. Use exactly "{!$brand.fontWeight.bold}" for HEADING blocks and exactly "{!$brand.fontWeight.normal}" for PARAGRAPH blocks. NEVER substitute it with the bare strings "normal", "bold", "regular", a number, or any other literal value, even if the visual result seems off. Use the merge field verbatim every time.\n' +
+    '5. IMPORTANT: Return ONLY the JSON object, no markdown code blocks, no explanations.\n\n';
 
     /**
      * Generate email blocks (heading, paragraph, list) using Gemini AI
